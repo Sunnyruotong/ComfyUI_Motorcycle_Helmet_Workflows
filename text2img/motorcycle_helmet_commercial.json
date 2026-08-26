@@ -1,0 +1,137 @@
+{
+  "1": {
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "2": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "length": 1,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "3": {
+    "inputs": {
+      "clip": [
+        "1",
+        1
+      ],
+      "text": "motorcycle helmet close-up at 45 degree angle, half-open visor with reflective lens, placed on sleek motorcycle gas tank, winding mountain road at golden hour dusk, warm sunset bokeh soft light, professional commercial product photography, 8K ultra high resolution, extreme detail, shallow depth of field, cinematic color grading, professional studio lighting with rim light, atmospheric haze, luxury aesthetic, sharp focus on helmet, blurred golden hour background, magazine quality, product shot"
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Positive Prompt)"
+    }
+  },
+  "4": {
+    "inputs": {
+      "clip": [
+        "1",
+        1
+      ],
+      "text": "blurry, low quality, distorted, dull lighting, watermark, text, oversaturated, undersaturated, flat, amateur, poor composition, unrealistic, CGI, plastic, cheap looking, grainy, noise, low resolution, pixelated, harsh shadows, poorly lit, dark, washed out"
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Negative Prompt)"
+    }
+  },
+  "5": {
+    "inputs": {
+      "seed": 42,
+      "steps": 35,
+      "cfg": 8.0,
+      "sampler_name": "dpmpp_2m_karras",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "3",
+        0
+      ],
+      "negative": [
+        "4",
+        0
+      ],
+      "latent_image": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler - Product Photography"
+    }
+  },
+  "6": {
+    "inputs": {
+      "vae": [
+        "1",
+        2
+      ],
+      "samples": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "7": {
+    "inputs": {
+      "upscale_model": "RealESRGAN_x4plus.pth",
+      "images": [
+        "6",
+        0
+      ]
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "8": {
+    "inputs": {
+      "upscale_model": [
+        "7",
+        0
+      ],
+      "images": [
+        "6",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (4x) - For 8K Quality"
+    }
+  },
+  "9": {
+    "inputs": {
+      "filename_prefix": "motorcycle_helmet_commercial_8k",
+      "images": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save High Quality Image"
+    }
+  }
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>待办事项应用 - To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="todo-app">
+            <header class="app-header">
+                <h1>📋 我的待办事项</h1>
+                <p class="subtitle">管理您的任务和计划</p>
+            </header>
+
+            <div class="input-section">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="todoInput" 
+                        class="todo-input" 
+                        placeholder="添加新任务..."
+                        autocomplete="off"
+                    >
+                    <button id="addBtn" class="add-btn">➕ 添加</button>
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="active">进行中</button>
+                    <button class="filter-btn" data-filter="completed">已完成</button>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">总数</span>
+                    <span id="totalCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">进行中</span>
+                    <span id="activeCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">已完成</span>
+                    <span id="completedCount" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <ul id="todoList" class="todo-list"></ul>
+
+            <div class="empty-state" id="emptyState">
+                <p>🎉 没有任务！放松一下吧</p>
+            </div>
+
+            <div class="action-bar">
+                <button id="clearCompletedBtn" class="clear-btn">🗑️ 清空已完成</button>
+                <button id="exportBtn" class="export-btn">💾 导出</button>
+                <button id="importBtn" class="import-btn">📥 导入</button>
+                <input type="file" id="fileInput" accept=".json" style="display: none;">
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
